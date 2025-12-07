@@ -52,7 +52,7 @@ fn main() -> ExitCode {
     let list_flag: bool = argv.get_flag("list");
     let benchmark_flag: bool = argv.get_flag("benchmark");
 
-    let advent_of_code = AdventOfCode::new();
+    let advent_of_code = AoC::new();
 
     if list_flag {
         println!("{}", advent_of_code);
