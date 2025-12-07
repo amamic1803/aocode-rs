@@ -79,6 +79,7 @@ pub mod year2021;
 pub mod year2022;
 pub mod year2023;
 pub mod year2024;
+pub mod year2025;
 
 #[doc(inline)]
 pub use year2015::Year2015;
@@ -100,3 +101,5 @@ pub use year2022::Year2022;
 pub use year2023::Year2023;
 #[doc(inline)]
 pub use year2024::Year2024;
+#[doc(inline)]
+pub use year2025::Year2025;

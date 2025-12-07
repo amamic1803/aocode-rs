@@ -289,6 +289,7 @@ impl AoC {
                 Box::new(problems::Year2022::new()),
                 Box::new(problems::Year2023::new()),
                 Box::new(problems::Year2024::new()),
+                Box::new(problems::Year2025::new()),
             ],
         };
         new_obj.years.sort_unstable_by_key(|year| year.id());
