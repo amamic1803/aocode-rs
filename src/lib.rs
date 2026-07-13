@@ -5,8 +5,6 @@ use std::error::Error as StdError;
 use std::fmt::{self, Display, Formatter};
 use std::time::Duration;
 
-pub mod graph;
-pub mod math;
 pub mod problems;
 
 /// An enum representing the errors that can occur in this crate.
