@@ -1,4 +1,4 @@
-use crate::math::HEX_DIGITS;
+use pmath::digit::HEX_LOWER;
 use crate::{Error, Solution};
 
 use md5::{Digest, Md5};
@@ -16,7 +16,9 @@ impl Solution for Day14 {
             hasher.update(hash_in);
 
             hash_out.clear();
-            write!(hash_out, "{:x}", hasher.finalize()).unwrap();
+            for b in hasher.finalize() {
+                write!(hash_out, "{:02x}", b).unwrap();
+            }
         })
         .to_string())
     }
@@ -26,13 +28,16 @@ impl Solution for Day14 {
             let mut hasher = Md5::new();
             let mut temp_hash = String::with_capacity(32);
             hasher.update(hash_in);
-            write!(temp_hash, "{:x}", hasher.finalize_reset()).unwrap();
+            for b in hasher.finalize_reset() {
+                write!(temp_hash, "{:02x}", b).unwrap();
+            }
 
             for _ in 0..ADDITIONAL_HASHES {
                 hasher.update(&temp_hash);
-                let hash = hasher.finalize_reset();
                 temp_hash.clear();
-                write!(temp_hash, "{:x}", hash).unwrap();
+                for b in hasher.finalize_reset() {
+                    write!(temp_hash, "{:02x}", b).unwrap();
+                }
             }
 
             hash_out.clear();
@@ -48,14 +53,14 @@ const ADDITIONAL_HASHES: usize = 2016;
 fn calculate_passwords<T: Fn(&str, &mut String)>(input: &str, hash_fn: T) -> u64 {
     static RE_3: LazyLock<Vec<Regex>> = LazyLock::new(|| {
         let mut re_3 = Vec::new();
-        for hex_digit in HEX_DIGITS {
+        for hex_digit in HEX_LOWER {
             re_3.push(Regex::new(&format!("{hex_digit}{{3}}")).unwrap());
         }
         re_3
     });
     static RE_5: LazyLock<Vec<Regex>> = LazyLock::new(|| {
         let mut re_5 = Vec::new();
-        for hex_digit in HEX_DIGITS {
+        for hex_digit in HEX_LOWER {
             re_5.push(Regex::new(&format!("{hex_digit}{{5}}")).unwrap());
         }
         re_5

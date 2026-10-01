@@ -55,7 +55,12 @@ fn main() -> ExitCode {
     let advent_of_code = AoC::new();
 
     if list_flag {
-        println!("{}", advent_of_code);
+        for year in advent_of_code.years() {
+            println!("Year {}", year.id());
+            for day in year.days() {
+                println!("Day {:02}: {}", day.id(), day.title());
+            }
+        }
     } else {
         // unwrap the year, day, and part numbers
         // clap will make sure that they are present here
@@ -70,7 +75,7 @@ fn main() -> ExitCode {
         }
 
         if !benchmark_flag {
-            match advent_of_code.run(year_num, day_num, part_num, &input) {
+            match advent_of_code.solve(year_num, day_num, part_num, &input) {
                 Ok(result) => println!("{}", result),
                 Err(err) => {
                     eprintln!("Error running the challenge: {}", err);

@@ -1,4 +1,4 @@
-use crate::graph::{Graph, Vertex};
+use pmath::discrete::graph::{Graph, Vertex};
 use crate::{Error, Solution};
 use std::collections::HashMap;
 
@@ -6,14 +6,14 @@ day!(Day09, 2015, 9, "All in a Single Night");
 
 impl Solution for Day09 {
     fn part1(&self, input: &str) -> Result<String, Error> {
-        Ok(parse_input(input).hamiltonian_path_min().0.to_string())
+        Ok(parse_input(input).hamiltonian_path_min().ok_or(Error::NoSolution)?.0.to_string())
     }
     fn part2(&self, input: &str) -> Result<String, Error> {
-        Ok(parse_input(input).hamiltonian_path_max().0.to_string())
+        Ok(parse_input(input).hamiltonian_path_max().ok_or(Error::NoSolution)?.0.to_string())
     }
 }
 
-fn parse_input(input: &str) -> Graph {
+fn parse_input(input: &str) -> Graph<usize, isize> {
     let mut cities = HashMap::new();
     let mut city_index = 0;
     let mut edges = Vec::new();
@@ -36,14 +36,14 @@ fn parse_input(input: &str) -> Graph {
 
     let mut graph = Graph::with_capacity(city_index);
     for i in 0..city_index {
-        graph.add_vertex(Vertex::new(i));
+        graph.add(&Vertex::new(i));
     }
 
     for edge in edges {
-        graph.set_edge_undirected(
-            Vertex::new(cities[edge.0]),
-            Vertex::new(cities[edge.1]),
-            edge.2 as isize,
+        graph.set_edge_bidirectional(
+            &Vertex::new(cities[edge.0]),
+            &Vertex::new(cities[edge.1]),
+            Some(edge.2 as isize),
         );
     }
 

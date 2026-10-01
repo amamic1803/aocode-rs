@@ -1,6 +1,7 @@
-use crate::math::{boundary_points, interior_points};
 use crate::{Error, Solution};
 use itertools::Itertools;
+use pmath::geometry::dim2::Polygon;
+use pmath::geometry::Point;
 
 day!(Day18, 2023, 18, "Lavaduct Lagoon");
 
@@ -17,8 +18,9 @@ impl Solution for Day18 {
 }
 
 fn calculate_volume(points: &[(i64, i64)]) -> i64 {
-    let boundary_points = boundary_points(points);
-    boundary_points + interior_points(points, boundary_points)
+    let points = points.iter().map(|&(x, y)| Point::new([x, y])).collect::<Vec<_>>();
+    let polygon = Polygon::new(points);
+    polygon.boundary_points() + polygon.interior_points()
 }
 
 fn parse_input1(input: &str) -> Vec<(i64, i64)> {

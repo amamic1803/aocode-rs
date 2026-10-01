@@ -1,4 +1,4 @@
-use crate::graph::{Graph, Vertex};
+use pmath::discrete::graph::{Graph, Vertex};
 use crate::{Error, Solution};
 use std::collections::VecDeque;
 
@@ -11,18 +11,21 @@ impl Solution for Day24 {
         // or find the minimum among minimal hamiltonian paths between 2 fixed edges
         // while the second edge is fixed once as each vertex other than start
 
-        let (numbers_locs, mut graph) = parse_input(input);
+        let (numbers_locs, graph) = parse_input(input);
 
-        Ok((0..numbers_locs.len())
-            .skip(1)
-            .map(|num| {
-                graph
-                    .hamiltonian_path_fixed_ends_min(Vertex::new(0), Vertex::new(num))
-                    .0
-            })
-            .min()
-            .unwrap()
-            .to_string())
+        let mut minimum: Option<isize> = None;
+        for i in 1..numbers_locs.len() {
+            let cost = graph
+                .hamiltonian_path_fixed_ends_min(&Vertex::new(0), &Vertex::new(i))
+                .map(|val| val.0);
+            if let Some(cost) = cost {
+                minimum = match minimum {
+                    Some(min) => Some(min.min(cost)),
+                    None => Some(cost),
+                };
+            }
+        }
+        minimum.map(|val| val.to_string()).ok_or(Error::NoSolution)
     }
 
     fn part2(&self, input: &str) -> Result<String, Error> {
@@ -30,14 +33,14 @@ impl Solution for Day24 {
         // just find a hamiltonian cycle
 
         let (_, graph) = parse_input(input);
-        Ok(graph.hamiltonian_cycle_min().0.to_string())
+        Ok(graph.hamiltonian_cycle_min().ok_or(Error::NoSolution)?.0.to_string())
     }
 }
 
 /// Parse input.
 /// Returns the vector of locations of each number (index)
 /// and the graph of distances between each number.
-fn parse_input(input: &str) -> (Vec<(usize, usize)>, Graph) {
+fn parse_input(input: &str) -> (Vec<(usize, usize)>, Graph<usize, isize>) {
     let mut numbers_with_loc = Vec::new();
     let mut grid = Vec::new();
     for (i, line) in input.lines().enumerate() {
@@ -62,13 +65,13 @@ fn parse_input(input: &str) -> (Vec<(usize, usize)>, Graph) {
 
     let mut graph = Graph::with_capacity(numbers_locs.last().unwrap().0 + 1);
     for i in 0..numbers_locs.len() {
-        graph.add_vertex(Vertex::new(i));
+        graph.add(&Vertex::new(i));
     }
 
     for i in 0..numbers_locs.len() {
         for j in (i + 1)..numbers_locs.len() {
             let distance = find_shortest_path(&grid, numbers_locs[i], numbers_locs[j]);
-            graph.set_edge_undirected(Vertex::new(i), Vertex::new(j), distance as isize);
+            graph.set_edge_bidirectional(&Vertex::new(i), &Vertex::new(j), Some(distance as isize));
         }
     }
 

@@ -1,5 +1,5 @@
 use crate::{Error, Solution};
-use pmath::primes::is_prime;
+use pmath::numth::prime::is_prime;
 
 day!(Day23, 2017, 23, "Coprocessor Conflagration");
 

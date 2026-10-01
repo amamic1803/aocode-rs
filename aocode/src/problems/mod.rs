@@ -4,14 +4,12 @@ macro_rules! year {
     ($struct_name:ident, $id:literal, $($day:ident),* ) => {
         #[doc = concat!("[*Advent of Code ", $id, "*](https://adventofcode.com/", $id, ")")]
         pub struct $struct_name {
-            id: usize,
             days: Vec<Box<dyn crate::Day>>,
         }
         impl $struct_name {
             #[doc = concat!("Create a new [", stringify!($struct_name), "] instance.")]
             pub fn new() -> Self {
                 let mut new_self = Self {
-                    id: $id,
                     days: vec![
                         $(Box::new($day::new())),*
                     ],
@@ -27,7 +25,7 @@ macro_rules! year {
         }
         impl crate::Year for $struct_name {
             fn id(&self) -> usize {
-                self.id
+                $id
             }
             fn days<'a>(&'a self) -> Box<dyn Iterator<Item = &'a dyn crate::Day> + 'a> {
                 Box::new(self.days.iter().map(|day| day.as_ref()))
@@ -39,31 +37,20 @@ macro_rules! year {
 macro_rules! day {
     ($struct_name:ident, $year_id:literal, $day_id:literal, $title:literal) => {
         #[doc = concat!("[*", $title, "*](https://adventofcode.com/", $year_id, "/day/", $day_id, ")")]
-        #[derive(Copy, Clone)]
-        pub struct $struct_name {
-            id: usize,
-            title: &'static str,
-        }
+        #[derive(Debug, Default, Copy, Clone, PartialEq, Eq, Hash, PartialOrd, Ord)]
+        pub struct $struct_name;
         impl $struct_name {
             #[doc = concat!("Create a new [", stringify!($struct_name), "] instance.")]
-            pub fn new() -> Self {
-                Self {
-                    id: $day_id,
-                    title: $title,
-                }
-            }
-        }
-        impl Default for $struct_name {
-            fn default() -> Self {
-                Self::new()
+            pub const fn new() -> Self {
+                Self {}
             }
         }
         impl crate::Day for $struct_name {
             fn id(&self) -> usize {
-                self.id
+                $day_id
             }
             fn title(&self) -> &str {
-                self.title
+                $title
             }
         }
     };

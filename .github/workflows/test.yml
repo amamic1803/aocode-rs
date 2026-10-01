@@ -18,25 +18,14 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Setup Rust toolchain
         uses: dtolnay/rust-toolchain@master
         with:
           toolchain: stable
+          targets: wasm32-unknown-unknown
           components: clippy, rustfmt
 
-      - name: Build
-        run: cargo build --all-features
-
-      - name: Test
-        run: cargo test --all-features
-
-      - name: Docs
-        run: cargo doc --all-features
-
-      - name: Clippy
-        run: cargo clippy --all-features -- -D warnings
-
-      - name: Rustfmt
-        run: cargo fmt --all --check
+      - name: Run CI checks
+        run: cargo xtask ci all

@@ -1,4 +1,3 @@
-use crate::math::manhattan_distance;
 use crate::{Error, Solution};
 use std::cmp::Ordering;
 use std::collections::{HashMap, HashSet};
@@ -110,4 +109,8 @@ fn parse_input(input: &str) -> Vec<(usize, usize)> {
             (x, y)
         })
         .collect()
+}
+
+fn manhattan_distance(a: (i64, i64), b: (i64, i64)) -> u64 {
+    ((a.0 - b.0).abs() + (a.1 - b.1).abs()) as u64
 }

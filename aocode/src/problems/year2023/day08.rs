@@ -1,5 +1,5 @@
 use crate::{Error, Solution};
-use pmath::lcm_multiple;
+use pmath::core::lcm_multiple;
 
 day!(Day08, 2023, 8, "Haunted Wasteland");
 

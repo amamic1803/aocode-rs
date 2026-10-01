@@ -1,4 +1,4 @@
-use crate::math::HEX_DIGITS;
+use pmath::digit::HEX_LOWER;
 use crate::{Error, Solution};
 use md5::{Digest, Md5};
 use std::fmt::Write;
@@ -49,7 +49,7 @@ impl Solution for Day05 {
 
                 if hash[0] == 0 && hash[1] == 0 && (hash[2] >> 4 == 0) {
                     let position = hash[2] & 0x0f;
-                    let character = HEX_DIGITS[(hash[3] >> 4) as usize];
+                    let character = HEX_LOWER[(hash[3] >> 4) as usize];
                     if position < 8 && password[position as usize] == '_' {
                         password[position as usize] = character;
                         break;

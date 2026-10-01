@@ -1,4 +1,4 @@
-use crate::graph::{Graph, Vertex};
+use pmath::discrete::graph::{Graph, Vertex};
 use crate::{Error, Solution};
 use std::collections::HashMap;
 
@@ -6,14 +6,14 @@ day!(Day13, 2015, 13, "Knights of the Dinner Table");
 
 impl Solution for Day13 {
     fn part1(&self, input: &str) -> Result<String, Error> {
-        Ok(parse_input(input).hamiltonian_cycle_max().0.to_string())
+        Ok(parse_input(input).hamiltonian_cycle_max().ok_or(Error::NoSolution)?.0.to_string())
     }
     fn part2(&self, input: &str) -> Result<String, Error> {
-        Ok(parse_input(input).hamiltonian_path_max().0.to_string())
+        Ok(parse_input(input).hamiltonian_path_max().ok_or(Error::NoSolution)?.0.to_string())
     }
 }
 
-fn parse_input(input: &str) -> Graph {
+fn parse_input(input: &str) -> Graph<usize, isize> {
     let mut names = Vec::new();
 
     let mut weights_vec = Vec::new();
@@ -46,12 +46,12 @@ fn parse_input(input: &str) -> Graph {
 
     let mut graph = Graph::with_capacity(names.len());
     for i in 0..names.len() {
-        graph.add_vertex(Vertex::new(i));
+        graph.add(&Vertex::new(i));
     }
     for (key, val) in weights {
         let index1 = names.iter().position(|&x| x == key.0).unwrap();
         let index2 = names.iter().position(|&x| x == key.1).unwrap();
-        graph.set_edge_undirected(Vertex::new(index1), Vertex::new(index2), val);
+        graph.set_edge_bidirectional(&Vertex::new(index1), &Vertex::new(index2), Some(val));
     }
 
     graph
