@@ -24,7 +24,7 @@ impl Solution for Day02 {
         for hash_map in parsed_input {
             let mut two_found = false;
             let mut three_found = false;
-            for (_, count) in hash_map.iter() {
+            for count in hash_map.values() {
                 match *count {
                     2 => two_found = true,
                     3 => three_found = true,

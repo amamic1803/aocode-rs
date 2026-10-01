@@ -1,15 +1,23 @@
-use pmath::discrete::graph::{Graph, Vertex};
 use crate::{Error, Solution};
+use pmath::discrete::graph::{Graph, Vertex};
 use std::collections::HashMap;
 
 day!(Day13, 2015, 13, "Knights of the Dinner Table");
 
 impl Solution for Day13 {
     fn part1(&self, input: &str) -> Result<String, Error> {
-        Ok(parse_input(input).hamiltonian_cycle_max().ok_or(Error::NoSolution)?.0.to_string())
+        Ok(parse_input(input)
+            .hamiltonian_cycle_max()
+            .ok_or(Error::NoSolution)?
+            .0
+            .to_string())
     }
     fn part2(&self, input: &str) -> Result<String, Error> {
-        Ok(parse_input(input).hamiltonian_path_max().ok_or(Error::NoSolution)?.0.to_string())
+        Ok(parse_input(input)
+            .hamiltonian_path_max()
+            .ok_or(Error::NoSolution)?
+            .0
+            .to_string())
     }
 }
 

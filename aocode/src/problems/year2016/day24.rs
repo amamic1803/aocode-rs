@@ -1,5 +1,5 @@
-use pmath::discrete::graph::{Graph, Vertex};
 use crate::{Error, Solution};
+use pmath::discrete::graph::{Graph, Vertex};
 use std::collections::VecDeque;
 
 day!(Day24, 2016, 24, "Air Duct Spelunking");
@@ -33,7 +33,11 @@ impl Solution for Day24 {
         // just find a hamiltonian cycle
 
         let (_, graph) = parse_input(input);
-        Ok(graph.hamiltonian_cycle_min().ok_or(Error::NoSolution)?.0.to_string())
+        Ok(graph
+            .hamiltonian_cycle_min()
+            .ok_or(Error::NoSolution)?
+            .0
+            .to_string())
     }
 }
 

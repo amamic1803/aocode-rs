@@ -29,6 +29,8 @@ impl Solution for Day17 {
         let mut circular_buffer = 1;
         let mut result = 0;
         let mut i = 0;
+
+        #[allow(clippy::explicit_counter_loop)] // for readability
         for n in 1..=PART2_LIMIT {
             i = (i + steps) % circular_buffer + 1;
             if i == 1 {

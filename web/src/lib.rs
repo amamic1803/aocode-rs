@@ -1,5 +1,5 @@
+use aocode::{AdventOfCode, AoC as libAoC};
 use js_sys::{Array, Number, Object, Reflect};
-use aocode::{AoC as libAoC, AdventOfCode};
 use pmath::statistics::Sample as libSample;
 use wasm_bindgen::prelude::*;
 
@@ -40,13 +40,25 @@ impl AoC {
         Ok(arr)
     }
 
-    pub fn solve(&self, year: usize, day: usize, part: usize, input: &str) -> Result<String, JsValue> {
+    pub fn solve(
+        &self,
+        year: usize,
+        day: usize,
+        part: usize,
+        input: &str,
+    ) -> Result<String, JsValue> {
         self.inner
             .solve(year, day, part, input)
             .map_err(|e| JsValue::from_str(&e.to_string()))
     }
 
-    pub fn benchmark(&self, year: usize, day: usize, part: usize, input: &str) -> Result<Object, JsValue> {
+    pub fn benchmark(
+        &self,
+        year: usize,
+        day: usize,
+        part: usize,
+        input: &str,
+    ) -> Result<Object, JsValue> {
         let (res, dur) = self
             .inner
             .benchmark(year, day, part, input)

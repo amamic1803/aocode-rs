@@ -1,5 +1,5 @@
-use pmath::digit::HEX_LOWER;
 use crate::{Error, Solution};
+use pmath::digit::HEX_LOWER;
 
 use md5::{Digest, Md5};
 use regex::Regex;

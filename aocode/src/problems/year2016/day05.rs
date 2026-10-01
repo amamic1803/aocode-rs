@@ -1,6 +1,6 @@
-use pmath::digit::HEX_LOWER;
 use crate::{Error, Solution};
 use md5::{Digest, Md5};
+use pmath::digit::HEX_LOWER;
 use std::fmt::Write;
 
 day!(Day05, 2016, 5, "How About a Nice Game of Chess?");

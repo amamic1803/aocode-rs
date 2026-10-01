@@ -40,12 +40,12 @@ impl Solution for Day01 {
                         new_value = new_value.rem_euclid(100);
                     }
                     value = new_value;
-                },
+                }
                 "R" => {
                     value += amount;
                     count += value / 100;
                     value %= 100;
-                },
+                }
                 _ => panic!("Invalid direction"),
             }
         }

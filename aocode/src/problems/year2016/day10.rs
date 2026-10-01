@@ -154,10 +154,8 @@ impl Processor {
             let mut product = 1;
 
             for i in 0..3 {
-                match self.outputs[i].value {
-                    Some(value) => product *= value as u64,
-                    None => return None,
-                }
+                let value = self.outputs[i].value?;
+                product *= value as u64;
             }
 
             Some(product)

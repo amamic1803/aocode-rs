@@ -1,5 +1,5 @@
-use pmath::numth::modular::{crt, Congruence};
 use crate::{Error, Solution};
+use pmath::numth::modular::{Congruence, crt};
 
 day!(Day15, 2016, 15, "Timing is Everything");
 
@@ -21,7 +21,8 @@ fn solve(discs: impl Iterator<Item = (usize, usize)>) -> Option<i64> {
         // start + t + i + 1 = 0 (mod modulus)
         let lhs_value = -(disc.1 as i64 + i as i64 + 1);
         Congruence::new(lhs_value, modulus)
-    })).map(|solution| solution.0)
+    }))
+    .map(|solution| solution.0)
 }
 
 fn parse_input(input: &str) -> impl Iterator<Item = (usize, usize)> {

@@ -8,6 +8,4 @@ pub use day01::Day01;
 #[doc(inline)]
 pub use day04::Day04;
 
-year!(
-    Year2025, 2025, Day01, Day04
-);
+year!(Year2025, 2025, Day01, Day04);
