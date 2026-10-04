@@ -5,18 +5,33 @@
     user-select: none;
     -webkit-tap-highlight-color: transparent;
 }
+@font-face {
+    font-family: "Source Code Pro";
+    src: url("../fonts/SourceCodePro/variable-regular.ttf") format("truetype");
+    font-style: normal;
+    font-weight: 100 900;
+}
+@font-face {
+    font-family: "Source Code Pro";
+    src: url("../fonts/SourceCodePro/variable-italic.ttf") format("truetype");
+    font-style: italic;
+    font-weight: 100 900;
+}
+
+
+
 body {
     font-size: 16px;
+    font-family: "Source Code Pro", monospace;
     min-height: 100vh;
-    background-color: #222222;
-    color: #ff9933;
+    background-color: #0f0f23;
+    color: #cccccc;
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+    flex-direction: column;
+    flex-wrap: nowrap;
     padding: 1.5em;
-    justify-content: space-evenly;
-    align-content: space-between;
-    align-items: center;
+    justify-content: space-between;
+    align-items: stretch;
 }
 @media (max-width: 470px) {
     body {
@@ -37,6 +52,64 @@ body {
     body {
         font-size: 8px;
     }
+}
+
+
+
+header {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+    row-gap: 0.5em;
+}
+header>img {
+    height: 7.5em;
+    aspect-ratio: 1;
+}
+header>div {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: center;
+}
+header>div>h1 {
+    color: #00cc00;
+    text-shadow: 0 0 5px #00cc00;
+    font-size: 3em;
+    font-weight: 650;
+    padding-bottom: 0.5em;
+}
+header>div>h2 {
+    color: #00cc00;
+    text-shadow: 0 0 5px #00cc00;
+    font-size: 1.15em;
+    font-weight: 500;
+    text-align: center;
+    padding-bottom: 0.5em;
+}
+header>div>h2>a {
+    color: #ffff66;
+    text-decoration: none;
+    text-shadow: 0 0 5px #ffff66;
+}
+header>div>h2>a:hover {
+    color: #ffff66;
+    text-decoration: none;
+    text-shadow: 0 0 10px #ffff66;
+}
+
+
+
+footer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
 }
 
 

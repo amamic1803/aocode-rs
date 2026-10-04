@@ -245,6 +245,7 @@ fn static_request_handler(request: Request<'_>) -> xtask_wasm::anyhow::Result<()
         Some("json") => "application/json",
         Some("woff") => "font/woff",
         Some("woff2") => "font/woff2",
+        Some("ttf") => "font/ttf",
         _ => "application/octet-stream",
     };
 
