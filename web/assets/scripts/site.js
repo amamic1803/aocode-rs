@@ -388,3 +388,43 @@ class ProblemWorker {
 
 
 new AoC();
+
+(function() {
+    const container = document.getElementById('snow-container');
+    const COUNT = window.innerWidth < 768 ? 40 : 80; // Fewer flakes on mobile
+
+    function random(min, max) {
+        return Math.random() * (max - min) + min;
+    }
+
+    function createSnowflake() {
+        const flake = document.createElement('div');
+        flake.className = 'snowflake';
+        const shapes = ['❄', '❅', '❆', '•'];
+        flake.textContent = shapes[Math.floor(Math.random() * shapes.length)];
+
+        const size = random(8, 22);
+        const duration = random(8, 18);
+        const left = random(0, 100);
+
+        flake.style.cssText = `
+            left: ${left}%;
+            font-size: ${size}px;
+            opacity: ${random(0.4, 0.9)};
+            animation-duration: ${duration}s;
+          `;
+
+        container.appendChild(flake);
+
+        // Clean up after the flake finishes (optional, keeps DOM clean)
+        setTimeout(() => flake.remove(), duration * 1000);
+    }
+
+    // Create initial batch
+    for (let i = 0; i < COUNT; i++) {
+        createSnowflake();
+    }
+
+    // Keep adding new ones
+    setInterval(createSnowflake, 200);
+})();
